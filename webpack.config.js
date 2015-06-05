@@ -18,7 +18,7 @@ var config = {
             { test: /\.js$/, loaders: ['react-hot', 'babel-loader'], exclude: [ /node_modules/, /bower_components/ ] },
             { test: /\.jsx$/, loaders: ['react-hot', 'babel-loader'], exclude: [ /node_modules/, /bower_components/ ] },
             { test: /\.less$/, loader: 'style!css!less-loader' },
-            { test: /\.css$/, loader: 'style-loader!css-loader?module&localIdentName='+config.cssloader.classNames+'!postcss-loader' },
+            { test: /\.css$/, loader: 'style-loader!css-loader?module&localIdentName=[path][name]---[local]---[hash:base64:5]!postcss-loader' },
             { test: /\.scss$/, loader: "style!css!sass?outputStyle=expanded" },
             { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }, // inline base64 URLs for <=8k images, direct URLs for the rest
             { test: /\.json$/, loader: 'json-loader' }
@@ -28,9 +28,6 @@ var config = {
         // you can now require('file') instead of require('file.json')
         extensions: ['', '.js', '.jsx', '.json', '.css', '.less'] 
     },
-    cssloader: {
-        classNames: '[path][name]---[local]---[hash:base64:5]'
-    }
     postcss: {
         // packs to use with post css
         defaults: [autoprefixer]
@@ -51,7 +48,6 @@ process.argv.forEach(function(val, index, array) {
         config.entry = ['./src/main.jsx'];
         config.target = 'web';
         config.postcss.defaults = [autoprefixer, csswring]; //Minifiy css
-        config.cssloader.classNames = '[hash:base64]';
     }
 });
 
